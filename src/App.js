@@ -58,7 +58,7 @@ function App() {
         <h1>Quick News App</h1>
         
       </div>
-      <div className="container">{category.map((item,index)=><button key={index} onClick={()=>setSelected(item)} className={item == selected ? ('btn btn-primary me-2 mb-2'):("btn btn-outline-primary me-2 mb-2")}>{item}</button>)}</div>
+      <div className="container">{category.map((item,index)=><button key={index} onClick={()=>setSelected(item)} className={item === selected ? ('btn btn-primary me-2 mb-2'):("btn btn-outline-primary me-2 mb-2")}>{item}</button>)}</div>
       {/* We are using a ternary operator here
       it says
       if data is null (i.e news is not yet fetched, show loading)
