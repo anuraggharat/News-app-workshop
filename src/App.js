@@ -32,23 +32,22 @@ function App() {
 
   
   //this function fetches the news from the api
-  async function getNews(){
-    setData(null)
-    const res = await fetch(
-      `https://inshorts.deta.dev/news?category=${selected}`
-    );
-    //we uses string literals ` ` here to add a variable inside a string
-    // here the api is https://inshorts.deta.dev/news?category=all
-    const response = await res.json();
-    //we store the response inside the data state
-    setData(response.data);
-  }
-
-  console.log(data)
+  
 
   // this is a side effect hook. This hook is used to call the fetch news function that fetches the news articles
   useEffect(() => {
-    getNews();
+    async function getNews() {
+      setData(null);
+      const res = await fetch(
+        `https://inshorts.deta.dev/news?category=${selected}`
+      );
+      //we uses string literals ` ` here to add a variable inside a string
+      // here the api is https://inshorts.deta.dev/news?category=all
+      const response = await res.json();
+      //we store the response inside the data state
+      setData(response.data);
+    }
+    getNews()
   }, [selected]);
   // we are passing selected variable here. It means that this hook will be called everytime the selected variable changes
 
