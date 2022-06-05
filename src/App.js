@@ -1,5 +1,7 @@
 import React, { useEffect,useState } from 'react';
 import Card from './Components/Card';
+import Loader from './Components/Loader'
+import './App.css'
 
 //an array of all the news categories
 const category =[
@@ -27,9 +29,11 @@ function App() {
   //stores the selected news category
   const [selected,setSelected]=useState('all')
 
+
   
   //this function fetches the news from the api
   async function getNews(){
+    setData(null)
     const res = await fetch(
       `https://inshorts.deta.dev/news?category=${selected}`
     );
@@ -40,7 +44,7 @@ function App() {
     setData(response.data);
   }
 
-
+  console.log(data)
 
   // this is a side effect hook. This hook is used to call the fetch news function that fetches the news articles
   useEffect(() => {
@@ -52,6 +56,7 @@ function App() {
     <div className="App">
       <div className="container pb-5 text-center pt-5">
         <h1>Quick News App</h1>
+        
       </div>
       <div className="container">{category.map((item,index)=><button key={index} onClick={()=>setSelected(item)} className={item == selected ? ('btn btn-primary me-2 mb-2'):("btn btn-outline-primary me-2 mb-2")}>{item}</button>)}</div>
       {/* We are using a ternary operator here
@@ -59,9 +64,7 @@ function App() {
       if data is null (i.e news is not yet fetched, show loading)
       else if data is fetched successfully map over the data array */}
       {data === null ? (
-        <div className="text-center container">
-          <h1>Loading</h1>
-        </div>
+        <Loader />
       ) : (
         <div className="container mt-5">
           {/* iterating over the map array to display each news component */}
